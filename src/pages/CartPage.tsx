@@ -33,9 +33,10 @@ export default function CartPage() {
           <p className="text-muted-foreground mb-6">
             Looks like you haven't added any products to your cart yet.
           </p>
-          <Button asChild>
-            <Link to="/products">Continue Shopping</Link>
-          </Button>
+          <Link to="/products">
+  <Button>Continue Shopping</Button>
+</Link>
+
         </div>
       </div>
     );

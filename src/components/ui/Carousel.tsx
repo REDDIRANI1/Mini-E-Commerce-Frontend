@@ -24,7 +24,8 @@ export default function Carousel({
   const [isAutoPlaying, setIsAutoPlaying] = useState(autoplay);
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
+
     
     if (isAutoPlaying) {
       timer = setInterval(() => {

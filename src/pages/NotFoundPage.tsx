@@ -11,12 +11,14 @@ export default function NotFoundPage() {
           The page you are looking for doesn't exist or has been moved.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button asChild>
-            <Link to="/">Go to Homepage</Link>
-          </Button>
-          <Button variant="outline" asChild>
-            <Link to="/products">Browse Products</Link>
-          </Button>
+          <Link to="/">
+  <Button>Go to Homepage</Button>
+</Link>
+
+          <Link to="/products">
+  <Button variant="outline">Browse Products</Button>
+</Link>
+
         </div>
       </div>
     </div>

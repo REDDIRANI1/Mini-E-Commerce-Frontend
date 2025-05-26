@@ -71,16 +71,14 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <Button size="lg" asChild>
-                <Link to="/products">
-                  Shop Now
-                </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/products?category=smartphones">
-                  Explore Tech
-                </Link>
-              </Button>
+              <Link to="/products">
+  <Button size="lg">Shop Now</Button>
+</Link>
+
+              <Link to="/products?category=smartphones">
+  <Button variant="outline" size="lg">Explore Tech</Button>
+</Link>
+
             </motion.div>
           </div>
           

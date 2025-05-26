@@ -20,9 +20,10 @@ export default function CheckoutPage() {
           <p className="text-muted-foreground mb-6">
             Add some products to your cart to proceed with checkout.
           </p>
-          <Button asChild>
-            <Link to="/products">Continue Shopping</Link>
-          </Button>
+          <Link to="/products">
+  <Button>Continue Shopping</Button>
+</Link>
+
         </div>
       </div>
     );

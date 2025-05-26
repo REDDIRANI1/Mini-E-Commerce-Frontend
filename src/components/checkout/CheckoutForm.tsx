@@ -32,7 +32,7 @@ export default function CheckoutForm({ onSuccess }: CheckoutFormProps) {
     resolver: zodResolver(checkoutSchema),
   });
 
-  const onSubmit = async (data: CheckoutFormData) => {
+  const onSubmit = async () => {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
