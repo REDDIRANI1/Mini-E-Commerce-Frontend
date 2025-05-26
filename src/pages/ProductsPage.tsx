@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { fetchProducts } from '@/lib/api';
-import { Product, FilterOptions } from '@/types';
-import { useFilter } from '@/contexts/FilterContext';
-import ProductGrid from '@/components/products/ProductGrid';
-import ProductFilters from '@/components/products/ProductFilters';
-import ProductSort from '@/components/products/ProductSort';
-import { Search, X } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { fetchProducts } from "@/lib/api";
+import { Product, FilterOptions } from "@/types";
+import { useFilter } from "@/contexts/FilterContext";
+import ProductGrid from "@/components/products/ProductGrid";
+import ProductFilters from "@/components/products/ProductFilters";
+import ProductSort from "@/components/products/ProductSort";
+import { Search, X } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
 export default function ProductsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,7 +32,7 @@ export default function ProductsPage() {
 
   // Initialize filters from URL
   useEffect(() => {
-    const categoryParam = searchParams.get('category');
+    const categoryParam = searchParams.get("category");
     if (categoryParam) {
       setFilters({ ...filters, category: categoryParam });
     }
@@ -45,7 +45,7 @@ export default function ProductsPage() {
       try {
         setIsLoading(true);
 
-        // let sortBy = '';  
+        // let sortBy = '';
 
         // if (sortOption.id === 'price-asc') {
         //   sortBy = 'price';
@@ -73,7 +73,7 @@ export default function ProductsPage() {
         setHasMore(products.length === PRODUCTS_PER_PAGE);
         setPage(1);
       } catch (error) {
-        console.error('Error loading products:', error);
+        console.error("Error loading products:", error);
       } finally {
         setIsLoading(false);
       }
@@ -87,27 +87,46 @@ export default function ProductsPage() {
     let result = [...products];
 
     if (filters.minPrice) {
-      result = result.filter((product) => product.price >= (filters.minPrice || 0));
+      result = result.filter(
+        (product) => product.price >= (filters.minPrice || 0)
+      );
     }
 
     if (filters.maxPrice) {
-      result = result.filter((product) => product.price <= (filters.maxPrice || Infinity));
+      result = result.filter(
+        (product) => product.price <= (filters.maxPrice || Infinity)
+      );
     }
 
     if (filters.brand) {
       result = result.filter((product) => product.brand === filters.brand);
     }
 
-    if (typeof filters.rating === 'number') {
-  const ratingThreshold: number = filters.rating;
-  result = result.filter((product) => product.rating >= ratingThreshold);
-}
-
+    if (typeof filters.rating === "number") {
+      const ratingThreshold: number = filters.rating;
+      result = result.filter((product) => product.rating >= ratingThreshold);
+    }
 
     if (filters.inStock) {
       result = result.filter((product) => product.stock > 0);
     }
 
+    switch (sortOption.id) {
+      case "price-asc":
+        result.sort((a, b) => a.price - b.price);
+        break;
+      case "price-desc":
+        result.sort((a, b) => b.price - a.price);
+        break;
+      case "rating-desc":
+        result.sort((a, b) => b.rating - a.rating);
+        break;
+      case "newest":
+        result.sort((a, b) => b.id - a.id);
+        break;
+      default:
+        break;
+    }
     setFilteredProducts(result);
   }, [products, filters]);
 
@@ -116,9 +135,9 @@ export default function ProductsPage() {
     const newSearchParams = new URLSearchParams(searchParams);
 
     if (filters.category) {
-      newSearchParams.set('category', filters.category);
+      newSearchParams.set("category", filters.category);
     } else {
-      newSearchParams.delete('category');
+      newSearchParams.delete("category");
     }
 
     setSearchParams(newSearchParams);
@@ -132,7 +151,7 @@ export default function ProductsPage() {
 
       const nextPage = page + 1;
 
-      // let sortBy = '';  
+      // let sortBy = '';
 
       // if (sortOption.id === 'price-asc') {
       //   sortBy = 'price';
@@ -161,7 +180,7 @@ export default function ProductsPage() {
       setHasMore(newProducts.length === PRODUCTS_PER_PAGE);
       setPage(nextPage);
     } catch (error) {
-      console.error('Error loading more products:', error);
+      console.error("Error loading more products:", error);
     } finally {
       setLoadingMore(false);
     }
@@ -169,9 +188,9 @@ export default function ProductsPage() {
 
   const getCategoryName = (categoryId: string) => {
     return categoryId
-      .split('-')
+      .split("-")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .join(" ");
   };
 
   return (
@@ -180,27 +199,29 @@ export default function ProductsPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col">
             <h1 className="text-2xl md:text-3xl font-bold mb-2">
-              {filters.category ? getCategoryName(filters.category) : 'All Products'}
+              {filters.category
+                ? getCategoryName(filters.category)
+                : "All Products"}
             </h1>
 
             <div className="text-sm text-muted-foreground flex items-center flex-wrap gap-2">
               <span>{filteredProducts.length} products</span>
 
               {Object.entries(filters).map(([key, value]) => {
-                if (!value || key === 'category') return null;
+                if (!value || key === "category") return null;
 
                 return (
                   <span
                     key={key}
                     className="inline-flex items-center bg-secondary text-secondary-foreground rounded-full px-2 py-1 text-xs"
                   >
-                    {key === 'minPrice'
-                      ? 'Min Price'
-                      : key === 'maxPrice'
-                      ? 'Max Price'
-                      : key === 'inStock'
-                      ? 'In Stock'
-                      : key === 'rating'
+                    {key === "minPrice"
+                      ? "Min Price"
+                      : key === "maxPrice"
+                      ? "Max Price"
+                      : key === "inStock"
+                      ? "In Stock"
+                      : key === "rating"
                       ? `${value}+ Stars`
                       : value}
                     <button
@@ -242,7 +263,7 @@ export default function ProductsPage() {
                 />
                 {searchQuery && (
                   <button
-                    onClick={() => setSearchQuery('')}
+                    onClick={() => setSearchQuery("")}
                     className="absolute inset-y-0 right-0 flex items-center pr-3"
                   >
                     <X className="h-4 w-4 text-muted-foreground" />
@@ -253,12 +274,21 @@ export default function ProductsPage() {
               <ProductSort />
             </div>
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
               <ProductGrid products={filteredProducts} isLoading={isLoading} />
 
               {!isLoading && filteredProducts.length > 0 && hasMore && (
                 <div className="mt-8 text-center">
-                  <Button onClick={loadMoreProducts} isLoading={loadingMore} variant="outline" size="lg">
+                  <Button
+                    onClick={loadMoreProducts}
+                    isLoading={loadingMore}
+                    variant="outline"
+                    size="lg"
+                  >
                     Load More
                   </Button>
                 </div>
@@ -266,9 +296,12 @@ export default function ProductsPage() {
 
               {!isLoading && filteredProducts.length === 0 && (
                 <div className="py-12 text-center">
-                  <h3 className="text-lg font-semibold mb-2">No products found</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    No products found
+                  </h3>
                   <p className="text-muted-foreground">
-                    Try adjusting your filters or search term to find what you're looking for.
+                    Try adjusting your filters or search term to find what
+                    you're looking for.
                   </p>
                 </div>
               )}

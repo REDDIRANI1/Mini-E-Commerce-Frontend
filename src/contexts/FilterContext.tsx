@@ -25,6 +25,7 @@ const sortOptions: SortOption[] = [
   { id: 'price-asc', name: 'Price: Low to High', value: 'price-asc' },
   { id: 'price-desc', name: 'Price: High to Low', value: 'price-desc' },
   { id: 'rating-desc', name: 'Rating: High to Low', value: 'rating-desc' },
+  { id: 'newest', name: 'Newest', value: 'newest' },
 ];
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
