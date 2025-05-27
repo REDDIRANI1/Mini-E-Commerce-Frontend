@@ -38,7 +38,7 @@ A simplified yet real-world e-commerce frontend built with **Next.js**, **Tailwi
 
 - **Framework:** [Next.js]
 - **Styling:** [Tailwind CSS]
-- **State Management:** React Context API (or Redux Toolkit)
+- **State Management:** React Context API
 - **Animation:** [Framer Motion]
 - **Icons:** [Lucide]
 - **Persistence:** LocalStorage for Cart & Wishlist
